@@ -487,8 +487,8 @@ in
           then sortedMatchBlocks.result
           else abort "Dependency cycle in SSH match blocks: ${sortedMatchBlocksStr}";
       in ''
-      ${concatStringsSep "\n" (
-        (mapAttrsToList (n: v: "${n} ${v}") cfg.extraOptionOverrides)
+      ${concatStringsSep "\n\n" (
+        (concatStringsSep "\n" (mapAttrsToList (n: v: "${n} ${v}") cfg.extraOptionOverrides))
         ++ (optional (cfg.includes != [ ]) ''
           Include ${concatStringsSep " " cfg.includes}
         '')
